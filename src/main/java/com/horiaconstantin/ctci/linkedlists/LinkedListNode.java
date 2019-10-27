@@ -3,9 +3,15 @@ package com.horiaconstantin.ctci.linkedlists;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Accessors(chain = true)
 public class LinkedListNode {
     @Getter
+    @Setter
     private int data;
     @Getter
     @Setter
@@ -37,5 +43,17 @@ public class LinkedListNode {
             current = current.next;
         }
         return head;
+    }
+
+    public Integer[] toArray() {
+        List<Integer> list = new ArrayList<>();
+        list.add(data);
+        LinkedListNode next = this.getNext();
+        while (next != null) {
+
+            list.add(next.getData());
+            next = next.getNext();
+        }
+        return list.toArray(Integer[]::new);
     }
 }
