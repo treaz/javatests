@@ -1,5 +1,9 @@
 package com.horiaconstantin.ctci.treesandgraphs;
 
+import lombok.Getter;
+
+import java.util.Arrays;
+
 class TestGraph {
 
     Node zero = new Node(0);
@@ -8,6 +12,9 @@ class TestGraph {
     Node three = new Node(3);
     Node four = new Node(4);
     Node five = new Node(5);
+
+    @Getter
+    private BaseGraph baseGraph;
 
     TestGraph() {
         zero.addChild(one)
@@ -20,5 +27,7 @@ class TestGraph {
         two.addChild(one);
 
         three.addChild(two);
+
+        baseGraph = new BaseGraph(Arrays.asList(zero, one, two, three, four, five));
     }
 }

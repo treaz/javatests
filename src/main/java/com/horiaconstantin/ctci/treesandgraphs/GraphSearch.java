@@ -11,33 +11,41 @@ import java.util.List;
 public class GraphSearch {
 
 
-    public List<Node> depthFirstSearch(@NonNull Node node) {
+    public List<Node> depthFirstSearch(@NonNull BaseGraph g, @NonNull Node node) {
         List<Node> path = new ArrayList<>();
-        return depthFirstSearch(path, node);
+        boolean[] visited = new boolean[g.nodes.size()];
+        return depthFirstSearch(visited, path, node);
     }
 
-    private List<Node> depthFirstSearch(List<Node> path, Node node) {
-        node.setVisited(true);
+    /**
+     * Performance O(n)
+     */
+    private List<Node> depthFirstSearch(boolean[] visited, List<Node> path, Node node) {
+        visited[node.getValue()] = true;
         path.add(node);
         for (Node child : node.getChildren()) {
-            if (!child.getVisited()) {
-                depthFirstSearch(path, child);
+            if (!visited[child.getValue()]) {
+                depthFirstSearch(visited, path, child);
             }
         }
         return path;
     }
 
-    public List<Node> breadthFirstSearch(@NonNull Node node) {
+    /**
+     * Performance O(n)
+     */
+    public List<Node> breadthFirstSearch(@NonNull BaseGraph g, @NonNull Node node) {
+        boolean[] visited = new boolean[g.nodes.size()];
         var path = new ArrayList<Node>();
 
         var queue = new ArrayDeque<Node>();
         queue.offer(node);
         while (!queue.isEmpty()) {
             var queuedNode = queue.pollLast();
-            if (queuedNode.getVisited()) {
+            if (visited[queuedNode.getValue()]) {
                 continue;
             }
-            queuedNode.setVisited(true);
+            visited[queuedNode.getValue()] = true;
             path.add(queuedNode);
             queuedNode.getChildren().forEach(queue::offer);
         }

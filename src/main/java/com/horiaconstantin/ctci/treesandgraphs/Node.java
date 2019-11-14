@@ -11,7 +11,6 @@ import java.util.List;
 public class Node {
     private int value;
     private List<Node> children = new ArrayList<>();
-    private boolean visited;
 
     public Node(int value) {
         this.value = value;
@@ -22,19 +21,10 @@ public class Node {
         return this;
     }
 
-    public void setVisited(boolean visited) {
-        this.visited = visited;
-    }
-
-    public boolean getVisited() {
-        return visited;
-    }
-
     @Override
     public String toString() {
         return "Node{" +
                 "value=" + value +
-                ", visited=" + visited +
                 '}';
     }
 }

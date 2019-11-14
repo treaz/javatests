@@ -18,14 +18,14 @@ class GraphSearchTest {
 
     @Test
     void depthFirstSearch() {
-        var actual = GraphSearch.depthFirstSearch(g.zero);
+        var actual = GraphSearch.depthFirstSearch(g.getBaseGraph(), g.zero);
 
         assertEquals(Arrays.asList(g.zero, g.one, g.three, g.two, g.four, g.five), actual);
     }
 
     @Test
     void breadthFirstSearch() {
-        var actual = GraphSearch.breadthFirstSearch(g.zero);
+        var actual = GraphSearch.breadthFirstSearch(g.getBaseGraph(), g.zero);
 
         assertEquals(Arrays.asList(g.zero, g.five, g.four, g.one, g.three, g.two), actual);
     }
