@@ -1,6 +1,7 @@
 package com.horiaconstantin.ctci.treesandgraphs;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
@@ -18,14 +19,16 @@ class ListOfDepthsTest {
     private TreeNode six = new TreeNode(6);
     private TreeNode seven = new TreeNode(7);
 
-    @Test
-    void fourNodes() {
+    @ParameterizedTest
+    @ValueSource(classes = {ListOfDepthsNaive.class, ListOfDepthsDFS.class})
+    void fourNodes(Class<ListOfDepths> clazz) throws Exception {
+        ListOfDepths algo = clazz.getDeclaredConstructor().newInstance();
         TreeNode input = two
                 .setLeft(one)
                 .setRight(three
                         .setRight(four));
 
-        List<List<TreeNode>> actual = ListOfDepths.solution(input);
+        List<List<TreeNode>> actual = algo.solution(input);
 
         List<List<TreeNode>> expected = asList(singletonList(two), asList(one, three), singletonList(four));
 
@@ -33,8 +36,10 @@ class ListOfDepthsTest {
 
     }
 
-    @Test
-    void sevenNodes() {
+    @ParameterizedTest
+    @ValueSource(classes = {ListOfDepthsNaive.class, ListOfDepthsDFS.class})
+    void sevenNodes(Class<ListOfDepths> clazz) throws Exception {
+        ListOfDepths algo = clazz.getDeclaredConstructor().newInstance();
         TreeNode input = two
                 .setLeft(one
                         .setLeft(five)
@@ -43,7 +48,7 @@ class ListOfDepthsTest {
                         .setRight(four
                                 .setRight(seven)));
 
-        List<List<TreeNode>> actual = ListOfDepths.solution(input);
+        List<List<TreeNode>> actual = algo.solution(input);
 
         List<List<TreeNode>> expected = asList(singletonList(two), asList(one, three), asList(five, six, four), singletonList(seven));
 
